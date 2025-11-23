@@ -1,0 +1,22 @@
+stages:
+  data_prep:
+    cmd: python prepare_data.py
+    deps:
+    - data/raw_data.csv
+    - prepare_data.py
+    outs:
+    - data/test.csv
+    - data/train.csv
+  model_train:
+    cmd: python train_model.py
+    deps:
+    - data/train.csv
+    - train_model.py
+    params:
+    - max_depth
+    - n_estimators
+    outs:
+    - model
+    metrics:
+    - metrics.json:
+        cache: false
